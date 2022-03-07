@@ -4,6 +4,12 @@
     Author     : vanhung38ht
 --%>
 
+<%@page import="Model.Time"%>
+<%@page import="Model.Seat"%>
+<%@page import="Model.Route"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.Car"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Agency - Start Bootstrap Theme</title>
+        <title>Nhà xe Dũng Thu</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -26,7 +32,37 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            .timeline-image .img-fluid{
+                height: 100%;
+            }
+            .OP{
+                width: 300px;
+                height: 50px;
+                border-radius: 10px;
+            }
+            
+            .OP2{
+                width: 300px;
+                height: 50px;
+                border-radius: 10px;
+                margin-top: 10px;
+                margin-bottom: 140px;
+            }
+            
+            .note {
+                color: red;
+            }
+        </style>
+
     </head>
+    <%
+        ArrayList<Car> cars = (ArrayList<Car>) request.getAttribute("cars");
+        ArrayList<Route> routes = (ArrayList<Route>) request.getAttribute("routes");
+        ArrayList<Seat> seats = (ArrayList<Seat>) request.getAttribute("seats");
+        ArrayList<Time> times = (ArrayList<Time>) request.getAttribute("times");
+        
+    %>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -43,7 +79,8 @@
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Dịch vụ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Đội ngũ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Đặt vé</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.jsp">Đăng nhập</a></li>
+                        <li class="nav-item"><a class="nav-link" href="checkticket.jsp">Kiểm tra vé</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login.jsp">Đăng nhập</a></li>                       
                     </ul>
                 </div>
             </div>
@@ -67,7 +104,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-calendar fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Ngày thành lập</h4>
                         <p class="text-muted">Nhà xe Dũng Thu chúng tôi được thành lập vào ngày 11/11/2011 với 6 thành viên và 2 phương tiện và được thành lập bởi ông Nguyễn Văn Dũng</p>
@@ -75,7 +112,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-arrow-up fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Hình thành và Phát triển</h4>
                         <p class="text-muted">Được hình thành do nhu cầu đi lại của mọi người và trải qua gần 12 năm phát triển thì nay nhà xe đã được phát triển thành một trong những nhà xe uy tín được mọi người lựa chọn tại Thành Phố Hà Tĩnh</p>
@@ -83,7 +120,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-dollar-sign fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Giá cả</h4>
                         <p class="text-muted">Nhà xe Dũng Thu chúng tôi luôn giữ giá cả ổn định, không cao cũng như không thấp so với mặt bằng chung ở thị trường xe Việt Nam</p>
@@ -260,24 +297,91 @@
                 <!-- to get an API token!-->
                 <form id="contactForm" data-sb-form-api-token="API_TOKEN">
                     <div class="row align-items-stretch mb-5">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <!-- Name input-->
                                 <input class="form-control" id="name" type="text" placeholder="Họ và Tên *" data-sb-validations="required" />
                                 <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                             </div>
-                            <div class="form-group">
-                                <!-- Email address input-->
-                                <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                            </div>
+                            
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            
                             <div class="form-group mb-md-0">
                                 <!-- Phone number input-->
                                 <input class="form-control" id="phone" type="tel" placeholder="Số Điện Thoại *" data-sb-validations="required" />
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                             </div>
                         </div>
+
+                        <div class="col-md-4 text-center">
+
+                            <select class="OP">
+                                <option value="0">Chọn loại xe bạn muốn đi</option>                                                     
+                                <%
+                                    for (Car car : cars) {%>
+                                <option value="<%=car.getCid()%>"><%=car.getCname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
+
+                            </select>
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                            <select class="OP2" >
+                                <option value="0">Chọn lộ trình bạn muốn đi</option>
+                                <%
+                                    for (Route route : routes) {%>
+                                <option value="<%=route.getRid()%>"><%=route.getRname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
+                            </select>                            
+                        </div>
+
+                        <div class="col-md-4 text-center">                            
+                            <select class="OP">
+                                <option value="0">Chọn vị trí bạn muốn trên xe</option>
+                                <%
+                                    for (Seat seat : seats) {%>
+                                <option value="<%=seat.getSid()%>"><%=seat.getSname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
+                            </select>
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                            <select class="OP2">
+                                <option value="0">Chọn thời gian bạn muốn xuất phát</option>
+                                <%
+                                    for (Time time : times) {%>
+                                <option value="<%=time.getTid()%>"><%=time.getTname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
+                            </select>
+
+                        </div>>
+                        <br>                   
+                        <br>   
 
                     </div>
                     <!-- Submit success message-->
@@ -297,10 +401,29 @@
                     <!-- This is what your users will see when there is-->
                     <!-- an error submitting the form-->
                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                    <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Đặt vé</button></div>
+                    <!-- Submit Button-->                                                    
+                    
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Đặt vé</button></div> 
+                    <br>
+
                 </form>
             </div>
+
+            <br>
+            <br>
+            <br>    
+
+            <div class="note text-center"style="background: yellow">
+                <h1 style="color: red">Chú ý</h1>
+                <p1 style="font-size: 24px">1. Vé chỉ được đặt thành công khi nhận được xác nhận từ hotline: 098 345 03 98</p1>      
+                <br>
+                <p2 style="font-size: 24px">2. Nếu trước 2h xe xuất phát, quý khách vẫn chưa nhận được cuộc gọi nào xin hãy liên hệ hotline: 098 345 03 98</p2>               
+                <br>
+                <p3 style="font-size: 24px">3. Khi quý khách chọn vị trí trên xe, chú ý A: Dãy bên tay trái - B: Dãy giữa - C: Dãy bên tay phải</p3>  
+                <br>
+                <p4 style="font-size: 24px">4. Khi quý khách chọn vị trí trên xe, chú ý số 1,2,3 là tầng 1 - 4,5,6 là tầng 2</p4>               
+            </div>
+
         </section>
         <!-- Footer-->
         <footer class="footer py-4">

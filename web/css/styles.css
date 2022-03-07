@@ -386,6 +386,7 @@ button:not(:disabled),
   cursor: pointer;
 }
 
+
 ::-moz-focus-inner {
   padding: 0;
   border-style: none;
@@ -602,6 +603,8 @@ progress {
 .img-fluid {
   max-width: 100%;
   height: auto;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
 }
 
 .img-thumbnail {
@@ -3034,6 +3037,22 @@ textarea.form-control-lg {
   background-color: #ffc800;
   border-color: #ffc800;
 }
+
+/*.checkbutton{
+  color: #fff;
+  background-color: #ffc800;
+  border-color: #ffc800;    
+}*/
+/**.note{
+    color: white;
+    background-color: red;
+}*/
+
+/*.note p1{
+    text-align: center;
+    color: red;
+}*/
+
 .btn-primary:hover {
   color: #fff;
   background-color: #d9aa00;
