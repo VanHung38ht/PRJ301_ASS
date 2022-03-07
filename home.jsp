@@ -4,6 +4,11 @@
     Author     : vanhung38ht
 --%>
 
+<%@page import="Model.Time"%>
+<%@page import="Model.Seat"%>
+<%@page import="Model.Route"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.Car"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,8 +36,33 @@
             .timeline-image .img-fluid{
                 height: 100%;
             }
+            .OP{
+                width: 300px;
+                height: 50px;
+                border-radius: 10px;
+            }
+            
+            .OP2{
+                width: 300px;
+                height: 50px;
+                border-radius: 10px;
+                margin-top: 10px;
+                margin-bottom: 140px;
+            }
+            
+            .note {
+                color: red;
+            }
         </style>
+
     </head>
+    <%
+        ArrayList<Car> cars = (ArrayList<Car>) request.getAttribute("cars");
+        ArrayList<Route> routes = (ArrayList<Route>) request.getAttribute("routes");
+        ArrayList<Seat> seats = (ArrayList<Seat>) request.getAttribute("seats");
+        ArrayList<Time> times = (ArrayList<Time>) request.getAttribute("times");
+        
+    %>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -49,7 +79,8 @@
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Dịch vụ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Đội ngũ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Đặt vé</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.jsp">Đăng nhập</a></li>
+                        <li class="nav-item"><a class="nav-link" href="checkticket.jsp">Kiểm tra vé</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login.jsp">Đăng nhập</a></li>                       
                     </ul>
                 </div>
             </div>
@@ -273,46 +304,30 @@
                                 <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                             </div>
                             
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            
                             <div class="form-group mb-md-0">
                                 <!-- Phone number input-->
                                 <input class="form-control" id="phone" type="tel" placeholder="Số Điện Thoại *" data-sb-validations="required" />
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-4 text-center">
-                            
-                            <select>
-                                <option value="0">Chọn loại xe bạn muốn đi</option>
-                                <c:forEach items="${Cname}" var="string name">
-<!--                                <option value="34">Từ 300 triệu đến 400 triệu</option>
-                                <option value="46">Từ 401 triệu đến 600 triệu</option>-->
-                                </c:forEach>
-                            </select>
-                                                      
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                                                        
-                            <select>
-                                <option value="0">Chọn loại xe bạn muốn đi</option>
-                                <c:forEach items="${Cname}" var="string name">
-<!--                                <option value="34">Từ 300 triệu đến 400 triệu</option>
-                                <option value="46">Từ 401 triệu đến 600 triệu</option>-->
-                                </c:forEach>
-                            </select>                            
-                        </div>
-                        
-                        <div class="col-md-4 text-center">                            
-                            <select>
-                                <option value="0">Chọn loại xe bạn muốn đi</option>
-                                <c:forEach items="${Cname}" var="string name">
-<!--                                <option value="34">Từ 300 triệu đến 400 triệu</option>
-                                <option value="46">Từ 401 triệu đến 600 triệu</option>-->
-                                </c:forEach>
+
+                            <select class="OP">
+                                <option value="0">Chọn loại xe bạn muốn đi</option>                                                     
+                                <%
+                                    for (Car car : cars) {%>
+                                <option value="<%=car.getCid()%>"><%=car.getCname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
+
                             </select>
 
                             <br>
@@ -321,19 +336,53 @@
                             <br>
                             <br>
                             <br>
-                            
-                            <select>
-                                <option value="0">Chọn loại xe bạn muốn đi</option>
-                                <c:forEach items="${Cname}" var="string name">
-<!--                                <option value="34">Từ 300 triệu đến 400 triệu</option>
-                                <option value="46">Từ 401 triệu đến 600 triệu</option>-->
-                                </c:forEach>
+
+                            <select class="OP2" >
+                                <option value="0">Chọn lộ trình bạn muốn đi</option>
+                                <%
+                                    for (Route route : routes) {%>
+                                <option value="<%=route.getRid()%>"><%=route.getRname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
+                            </select>                            
+                        </div>
+
+                        <div class="col-md-4 text-center">                            
+                            <select class="OP">
+                                <option value="0">Chọn vị trí bạn muốn trên xe</option>
+                                <%
+                                    for (Seat seat : seats) {%>
+                                <option value="<%=seat.getSid()%>"><%=seat.getSname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
+                            </select>
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                            <select class="OP2">
+                                <option value="0">Chọn thời gian bạn muốn xuất phát</option>
+                                <%
+                                    for (Time time : times) {%>
+                                <option value="<%=time.getTid()%>"><%=time.getTname()%>
+
+                                </option>                             
+                                <%    }
+                                %>
                             </select>
 
                         </div>>
-                    <br>                   
-                    <br>   
-                    
+                        <br>                   
+                        <br>   
+
                     </div>
                     <!-- Submit success message-->
                     <!---->
@@ -352,13 +401,29 @@
                     <!-- This is what your users will see when there is-->
                     <!-- an error submitting the form-->
                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                    <!-- Submit Button-->
+                    <!-- Submit Button-->                                                    
+                    
                     <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Đặt vé</button></div> 
                     <br>
-                    <br>
-                    <div class="text-center"><button class="checkbutton" id="checkButton" type="submit">Kiểm tra vé đã đặt</button></div>
+
                 </form>
             </div>
+
+            <br>
+            <br>
+            <br>    
+
+            <div class="note text-center"style="background: yellow">
+                <h1 style="color: red">Chú ý</h1>
+                <p1 style="font-size: 24px">1. Vé chỉ được đặt thành công khi nhận được xác nhận từ hotline: 098 345 03 98</p1>      
+                <br>
+                <p2 style="font-size: 24px">2. Nếu trước 2h xe xuất phát, quý khách vẫn chưa nhận được cuộc gọi nào xin hãy liên hệ hotline: 098 345 03 98</p2>               
+                <br>
+                <p3 style="font-size: 24px">3. Khi quý khách chọn vị trí trên xe, chú ý A: Dãy bên tay trái - B: Dãy giữa - C: Dãy bên tay phải</p3>  
+                <br>
+                <p4 style="font-size: 24px">4. Khi quý khách chọn vị trí trên xe, chú ý số 1,2,3 là tầng 1 - 4,5,6 là tầng 2</p4>               
+            </div>
+
         </section>
         <!-- Footer-->
         <footer class="footer py-4">
