@@ -286,16 +286,19 @@
             </div>
 
             <!-- Login Form -->
-            <form>
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+            <!--            <form action="login" method="POST">-->
+            <form action="login" method="POST">
+                <input type="text" id="login" class="fadeIn second" name="username" placeholder="login">
+                <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
                 <input type="submit" class="fadeIn fourth" value="Log In">
             </form>
-
-            <!-- Remind Passowrd -->
-            <div id="formFooter">
-                <a class="underlineHover" href="#">Forgot Password?</a>
+            <div>
+                <p class="text-danger">${mess}</p>
             </div>
+            <!--             Remind Passowrd 
+                        <div id="formFooter">
+                            <a class="underlineHover" href="#">Forgot Password?</a>
+                        </div>-->
 
         </div>
     </div>
