@@ -41,7 +41,7 @@
                 height: 50px;
                 border-radius: 10px;
             }
-            
+
             .OP2{
                 width: 300px;
                 height: 50px;
@@ -49,7 +49,7 @@
                 margin-top: 10px;
                 margin-bottom: 140px;
             }
-            
+
             .note {
                 color: red;
             }
@@ -61,7 +61,7 @@
         ArrayList<Route> routes = (ArrayList<Route>) request.getAttribute("routes");
         ArrayList<Seat> seats = (ArrayList<Seat>) request.getAttribute("seats");
         ArrayList<Time> times = (ArrayList<Time>) request.getAttribute("times");
-        
+
     %>
     <body id="page-top">
         <!-- Navigation-->
@@ -79,6 +79,7 @@
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Dịch vụ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Đội ngũ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Đặt vé</a></li>
+                        <!--<li class="nav-item"><a class="nav-link" href="#checkticket">Kiểm tra vé</a></li>-->
                         <li class="nav-item"><a class="nav-link" href="checkticket.jsp">Kiểm tra vé</a></li>
                         <li class="nav-item"><a class="nav-link" href="login.jsp">Đăng nhập</a></li>                       
                     </ul>
@@ -303,12 +304,12 @@
                                 <input class="form-control" id="name" type="text" placeholder="Họ và Tên *" data-sb-validations="required" />
                                 <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                             </div>
-                            
+
                             <br>
                             <br>
                             <br>
                             <br>
-                            
+
                             <div class="form-group mb-md-0">
                                 <!-- Phone number input-->
                                 <input class="form-control" id="phone" type="tel" placeholder="Số Điện Thoại *" data-sb-validations="required" />
@@ -320,8 +321,7 @@
 
                             <select class="OP">
                                 <option value="0">Chọn loại xe bạn muốn đi</option>                                                     
-                                <%
-                                    for (Car car : cars) {%>
+                                <%                                    for (Car car : cars) {%>
                                 <option value="<%=car.getCid()%>"><%=car.getCname()%>
 
                                 </option>                             
@@ -402,7 +402,7 @@
                     <!-- an error submitting the form-->
                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                     <!-- Submit Button-->                                                    
-                    
+
                     <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Đặt vé</button></div> 
                     <br>
 
@@ -425,6 +425,12 @@
             </div>
 
         </section>
+
+        <br>           
+        <br>           
+        <br>           
+  
+
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
