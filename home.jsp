@@ -18,7 +18,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Nhà xe Dũng Thu</title>
+        
+        <title>Nhà xe Dũng Thu</title>     
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="shortcut icon" type="image/x-icon" href="assets/img/iconlogo.jpg">
+        
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -41,7 +47,7 @@
                 height: 50px;
                 border-radius: 10px;
             }
-            
+
             .OP2{
                 width: 300px;
                 height: 50px;
@@ -49,7 +55,7 @@
                 margin-top: 10px;
                 margin-bottom: 140px;
             }
-            
+
             .note {
                 color: red;
             }
@@ -61,13 +67,13 @@
         ArrayList<Route> routes = (ArrayList<Route>) request.getAttribute("routes");
         ArrayList<Seat> seats = (ArrayList<Seat>) request.getAttribute("seats");
         ArrayList<Time> times = (ArrayList<Time>) request.getAttribute("times");
-        
+
     %>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="assets/img/logoheader.jpg" alt="..." /></a>
+                <a class="navbar-brand" href="#page-top"><img src="assets/img/logo.jpg" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -79,8 +85,17 @@
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Dịch vụ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Đội ngũ</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Đặt vé</a></li>
+                        <!--<li class="nav-item"><a class="nav-link" href="#checkticket">Kiểm tra vé</a></li>-->
                         <li class="nav-item"><a class="nav-link" href="checkticket.jsp">Kiểm tra vé</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.jsp">Đăng nhập</a></li>                       
+                        
+                        <c:if test="${sessionScope.acc != null}">
+                            <li class="nav-item"><a class="nav-link" href="#">Xin chào ${sessionScope.acc.username}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="LogOut">Đăng xuất</a></li> 
+                        </c:if>
+                        
+                        <c:if test="${sessionScope.acc == null}">
+                            <li class="nav-item"><a class="nav-link" href="login.jsp">Đăng nhập</a></li>       
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -295,33 +310,32 @@
                 <!-- To make this form functional, sign up at-->
                 <!-- https://startbootstrap.com/solution/contact-forms-->
                 <!-- to get an API token!-->
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                <form action="UserController" method="POST" id="contactForm" data-sb-form-api-token="API_TOKEN">
                     <div class="row align-items-stretch mb-5">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <!-- Name input-->
-                                <input class="form-control" id="name" type="text" placeholder="Họ và Tên *" data-sb-validations="required" />
+                                <input name="Name" class="form-control" id="name" type="text" placeholder="Họ và Tên *" data-sb-validations="required" />
                                 <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                             </div>
-                            
+
                             <br>
                             <br>
                             <br>
                             <br>
-                            
+
                             <div class="form-group mb-md-0">
                                 <!-- Phone number input-->
-                                <input class="form-control" id="phone" type="tel" placeholder="Số Điện Thoại *" data-sb-validations="required" />
+                                <input name="Phone" class="form-control" id="phone" type="tel" placeholder="Số Điện Thoại *" data-sb-validations="required" />
                                 <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                             </div>
                         </div>
 
                         <div class="col-md-4 text-center">
 
-                            <select class="OP">
+                            <select name="Car" class="OP">
                                 <option value="0">Chọn loại xe bạn muốn đi</option>                                                     
-                                <%
-                                    for (Car car : cars) {%>
+                                <%                                    for (Car car : cars) {%>
                                 <option value="<%=car.getCid()%>"><%=car.getCname()%>
 
                                 </option>                             
@@ -337,7 +351,7 @@
                             <br>
                             <br>
 
-                            <select class="OP2" >
+                            <select name="Route" class="OP2" >
                                 <option value="0">Chọn lộ trình bạn muốn đi</option>
                                 <%
                                     for (Route route : routes) {%>
@@ -350,7 +364,7 @@
                         </div>
 
                         <div class="col-md-4 text-center">                            
-                            <select class="OP">
+                            <select name="Seat" class="OP">
                                 <option value="0">Chọn vị trí bạn muốn trên xe</option>
                                 <%
                                     for (Seat seat : seats) {%>
@@ -368,7 +382,7 @@
                             <br>
                             <br>
 
-                            <select class="OP2">
+                            <select name="Time" class="OP2">
                                 <option value="0">Chọn thời gian bạn muốn xuất phát</option>
                                 <%
                                     for (Time time : times) {%>
@@ -390,10 +404,10 @@
                     <!-- has successfully submitted-->
                     <div class="d-none" id="submitSuccessMessage">
                         <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                            To activate this form, sign up at
+                            <div class="fw-bolder">Đặt vé thành công</div>
+                            
                             <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+       
                         </div>
                     </div>
                     <!-- Submit error message-->
@@ -403,7 +417,9 @@
                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                     <!-- Submit Button-->                                                    
                     
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Đặt vé</button></div> 
+                    <div class="Submitticket">  
+                        <input type="submit" value="Gửi"> 
+                    </div>                 
                     <br>
 
                 </form>
@@ -425,6 +441,12 @@
             </div>
 
         </section>
+
+        <br>           
+        <br>           
+        <br>           
+  
+
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
