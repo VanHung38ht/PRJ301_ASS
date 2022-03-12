@@ -5,7 +5,7 @@
  */
 package Dal;
 
-import Model.Car;
+import Model.Route;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,27 +19,24 @@ import java.util.logging.Logger;
  *
  * @author vanhung38ht
  */
-public class CarDBContext extends DBContext {
-    public ArrayList<Car> getCars()
+public class RouteDBContext extends DBContext{
+    public ArrayList<Route> getRoutes()
     {
-        ArrayList<Car> car = new ArrayList<>();
+        ArrayList<Route> route = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Car";
+            String sql = "SELECT * FROM Route";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while(rs.next())
             {
-                Car c = new Car();
-                c.setCid(rs.getInt("cid"));
-                c.setCname(rs.getString("cname"));
-                car.add(c);
+                Route r = new Route();
+                r.setRid(rs.getInt("rid"));
+                r.setRname(rs.getString("rname"));
+                route.add(r);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CarDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RouteDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return car;
-    }
-
+        return route;
+    }    
 }
-
-

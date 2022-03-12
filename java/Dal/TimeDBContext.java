@@ -5,13 +5,11 @@
  */
 package Dal;
 
-import Model.Car;
-import java.sql.Connection;
+import Model.Time;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,27 +17,24 @@ import java.util.logging.Logger;
  *
  * @author vanhung38ht
  */
-public class CarDBContext extends DBContext {
-    public ArrayList<Car> getCars()
+public class TimeDBContext extends DBContext{
+     public ArrayList<Time> getTimes()
     {
-        ArrayList<Car> car = new ArrayList<>();
+        ArrayList<Time> seat = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Car";
+            String sql = "SELECT * FROM Time";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while(rs.next())
             {
-                Car c = new Car();
-                c.setCid(rs.getInt("cid"));
-                c.setCname(rs.getString("cname"));
-                car.add(c);
+                Time t = new Time();
+                t.setTid(rs.getInt("Tid"));
+                t.setTname(rs.getString("Tname"));
+                seat.add(t);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CarDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TimeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return car;
-    }
-
+        return seat;
+    }    
 }
-
-

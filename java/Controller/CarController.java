@@ -5,8 +5,17 @@
  */
 package Controller;
 
+import Dal.CarDBContext;
+import Dal.RouteDBContext;
+import Dal.SeatDBContext;
+import Dal.TimeDBContext;
+import Model.Car;
+import Model.Route;
+import Model.Seat;
+import Model.Time;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,66 +27,39 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CarController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CarController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CarController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//            processRequest(request, response);
+        CarDBContext db = new CarDBContext();
+        ArrayList<Car> cars = db.getCars();
+        request.setAttribute("cars", cars);
+        
+        RouteDBContext db1 = new RouteDBContext();
+        ArrayList<Route> routes = db1.getRoutes();
+        request.setAttribute("routes", routes);
+        
+        SeatDBContext db2 = new SeatDBContext();
+        ArrayList<Seat> seats = db2.getSeats();
+        request.setAttribute("seats", seats);
+        
+        TimeDBContext db3 = new TimeDBContext();
+        ArrayList<Time> times = db3.getTimes();
+        request.setAttribute("times", times);
+        
+        
         request.getRequestDispatcher("home.jsp").forward(request, response);
+//        request.getRequestDispatcher("home1.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
