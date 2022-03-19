@@ -1,6 +1,6 @@
 <%-- 
-    Document   : checkticket
-    Created on : Mar 7, 2022, 9:01:00 PM
+    Document   : infor
+    Created on : Mar 19, 2022, 8:18:21 PM
     Author     : vanhung38ht
 --%>
 
@@ -15,6 +15,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <%
+            ArrayList<User> users = (ArrayList<User>) request.getAttribute("user");
+        %>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -48,6 +51,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
                 <div class="container">
                     <a class="navbar-brand" href="#page-top"><img src="assets/img/logo.jpg" alt="..." /></a>
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         Menu
                         <i class="fas fa-bars ms-1"></i>
@@ -64,35 +68,48 @@
                 <div class="container">
                     <div class="masthead-subheading">Chào mừng bạn đến với nhà xe DŨNG THU</div>
                     <div class="masthead-heading text-uppercase">Hân hạnh được phục vụ</div>
-                    <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tìm kiếm thông tin vé</a>
+                    <!--<a class="btn btn-primary btn-xl text-uppercase" href="#services">Tìm kiếm thông tin vé</a>-->
                 </div>
             </header> 
 
-            <div class="khungsearch">  
 
-                <section class="page-section" id="services">
-                    <div style="text-align: center" ">
-                        <label for="site-search">Quý Khách Vui Lòng Nhập Thông Tin Tìm Kiếm</label>
-                    </div>   
+            <br>
+            <br>
 
-                    <br>
-                    <br>
-                    <br>           
-
-                    <div class="text-center" style="font-size: 30px">
-                        <input type="text" name="sdt" placeholder="Số điện thoại">
-                    </div>
-
-                    <br>                               
-                    <br>
-
-                    <div class="Search text-center">
-                        <button>Tìm Kiếm</button>
-                    </div>
-                    <!--<div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Tìm Kiếm</button></div>--> 
-                </section>  
+            <div class="text-center" style="display: flex">                   
+                       <a class="nav-link" href="CarController">Trang Chủ</a>                    
+                       <a class="nav-link" href="checkticket.jsp">Tìm Kiếm</a>                               
             </div>
-        </div>
-    </form>
-</body>
+
+            <div class="in4">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr style="color: black">
+                            <th>Họ và Tên</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Loại xe</th>
+                            <th>Lộ trình</th>
+                            <th>Vị trí</th>
+                            <th>Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (User user : users) {%>                                                 
+                        <tr>
+                            <td><%=user.getName()%></td>
+                            <td><%=user.getPhone()%></td>
+                            <td><%=user.getCar()%></td>
+                            <td><%=user.getSeat()%></td>
+                            <td><%=user.getRoute()%></td>
+                            <td><%=user.getTime()%></td>
+                        </tr>
+                        <%}
+                        %>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </form>
+    </body>
 </html>

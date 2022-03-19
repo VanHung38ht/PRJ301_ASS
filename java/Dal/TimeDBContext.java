@@ -17,24 +17,23 @@ import java.util.logging.Logger;
  *
  * @author vanhung38ht
  */
-public class TimeDBContext extends DBContext{
-     public ArrayList<Time> getTimes()
-    {
-        ArrayList<Time> seat = new ArrayList<>();
+public class TimeDBContext extends DBContext {
+
+    public ArrayList<Time> getTimes() {
+        ArrayList<Time> time = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Time";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
-            while(rs.next())
-            {
+            while (rs.next()) {
                 Time t = new Time();
                 t.setTid(rs.getInt("Tid"));
                 t.setTname(rs.getString("Tname"));
-                seat.add(t);
+                time.add(t);
             }
         } catch (SQLException ex) {
             Logger.getLogger(TimeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return seat;
-    }    
+        return time;
+    }
 }

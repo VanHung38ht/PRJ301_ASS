@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class SeatDBContext extends DBContext{
      public ArrayList<Seat> getSeats()
     {
-        ArrayList<Seat> route = new ArrayList<>();
+        ArrayList<Seat> seat = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Seat";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -30,11 +30,13 @@ public class SeatDBContext extends DBContext{
                 Seat s = new Seat();
                 s.setSid(rs.getInt("Sid"));
                 s.setSname(rs.getString("Sname"));
-                route.add(s);
+                seat.add(s);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SeatDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return route;
-    }     
+        return seat;
+    }    
+   
+            
 }

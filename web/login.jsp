@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+       <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="shortcut icon" type="image/x-icon" href="assets/img/iconlogo.jpg">
 <!DOCTYPE html>
 <html>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -312,7 +316,7 @@
 
             <!-- Icon -->
             <div class="fadeIn first">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBhkIkn5gzYqIf-7Fl2q5GsMtxkN49tXYvSg&usqp=CAU" id="icon" alt="User Icon" />
+                <img src="assets/img/logo.jpg" id="icon" alt="User Icon" />
             </div>
 
             <!-- Login Form -->

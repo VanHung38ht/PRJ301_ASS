@@ -336,7 +336,7 @@
                             <select name="Car" class="OP">
                                 <option value="0">Chọn loại xe bạn muốn đi</option>                                                     
                                 <%                                    for (Car car : cars) {%>
-                                <option value="<%=car.getCid()%>"><%=car.getCname()%>
+                                <option value="<%=car.getCname()%>"><%=car.getCname()%>
 
                                 </option>                             
                                 <%    }
@@ -355,7 +355,7 @@
                                 <option value="0">Chọn lộ trình bạn muốn đi</option>
                                 <%
                                     for (Route route : routes) {%>
-                                <option value="<%=route.getRid()%>"><%=route.getRname()%>
+                                <option value="<%=route.getRname()%>"><%=route.getRname()%>
 
                                 </option>                             
                                 <%    }
@@ -368,7 +368,7 @@
                                 <option value="0">Chọn vị trí bạn muốn trên xe</option>
                                 <%
                                     for (Seat seat : seats) {%>
-                                <option value="<%=seat.getSid()%>"><%=seat.getSname()%>
+                                <option value="<%=seat.getSname()%>"><%=seat.getSname()%>
 
                                 </option>                             
                                 <%    }
@@ -386,7 +386,7 @@
                                 <option value="0">Chọn thời gian bạn muốn xuất phát</option>
                                 <%
                                     for (Time time : times) {%>
-                                <option value="<%=time.getTid()%>"><%=time.getTname()%>
+                                <option value="<%=time.getTname()%>"><%=time.getTname()%>
 
                                 </option>                             
                                 <%    }
