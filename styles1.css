@@ -11831,6 +11831,16 @@ label{
     font-size: 30px;
 }
 
+.Search1 input{
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px;
+}
+
 .khungsearch {
     background-image: url("../assets/img/backgroundsearch.jpg");
+}
+
+.sdt {
+    border-radius: 10px;
 }
